@@ -1,8 +1,0 @@
-#node core modules
-/node_modules
-
-#Local environment for testing
-.env
-
-#Local setup
-.prettierrc
