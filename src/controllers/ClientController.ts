@@ -1,4 +1,4 @@
-import {Request,response,Response} from 'express';
+import {Request,Response} from 'express';
 import {genSalt,hash} from 'bcrypt';
 import { ClientService } from '../services/ClientServices';
 
