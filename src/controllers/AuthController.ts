@@ -19,7 +19,7 @@ export class AuthController{
         //3) Generate JWT token
         const signToken = sign({email:user.email},process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRE})
         
-        req.token = signToken;
+        // req.token = signToken;
 
         return res.status(200).json({
                 data:signToken
