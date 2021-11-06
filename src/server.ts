@@ -2,7 +2,7 @@
 import express from 'express';
 import 'dotenv/config';
 import "reflect-metadata";
-
+import cors from 'cors';
 import productRoutes from './routes/productRouter';
 import clientRoutes from './routes/clientRouter';
 import supplierRoutes from './routes/supplierRouter'
@@ -12,7 +12,7 @@ const app = express();
 
 //Enable JSON payloads
 app.use(express.json());
-
+app.use(cors());
 
 //Routers
 app.use('/client',clientRoutes);

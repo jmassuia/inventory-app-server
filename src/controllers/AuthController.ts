@@ -20,7 +20,7 @@ export class AuthController{
         const signToken = sign({email:user.email},process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRE})
         
         // req.token = signToken;
-
+        
         return res.status(200).json({
                 data:signToken
             });

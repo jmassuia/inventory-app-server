@@ -3,14 +3,21 @@ import { PrismaClient } from ".prisma/client";
 const prisma = new PrismaClient();
 
 interface Client{
-    name: string   
-    email: string   
+    name: string
+    email: string  
     password: string
     CNPJ: string
-}
+}   
+
+
 export class ClientService{
     async listClients(){
-        const clients = await prisma.client.findMany();
+        const clients = await prisma.client.findMany({
+            select:{
+                name:true,
+                email:true,
+            }
+        });
 
         return clients;
     }
