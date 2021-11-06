@@ -1,10 +1,11 @@
 //Importing modules
-import express from "express";
+import express from 'express';
 import 'dotenv/config';
 import "reflect-metadata";
 import cors from 'cors';
 import productRoutes from './routes/productRouter';
 import clientRoutes from './routes/clientRouter';
+import supplierRoutes from './routes/supplierRouter'
 
 //Create server
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors());
 
 //Routers
 app.use('/client',clientRoutes);
+app.use('/suppliers',supplierRoutes)
 app.use('/products',productRoutes);
 
 //Enable bind connections and listen on the host:port
