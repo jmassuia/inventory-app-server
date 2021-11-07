@@ -1,4 +1,4 @@
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -13,9 +13,13 @@ interface Client{
 export class ClientService{
     async listClients(){
         const clients = await prisma.client.findMany({
+            where:{
+                active:true
+            },
             select:{
                 name:true,
                 email:true,
+                role:true,              
             }
         });
 
@@ -27,6 +31,29 @@ export class ClientService{
             data:user
         });
 
-        return client
+        return client;
+    }
+    async updateClient(id,data){
+        const client = await prisma.client.update({
+            where:{
+                id
+            },
+            data
+        });
+
+        return client;
+    }
+    async deleteClient(id){
+
+        await prisma.client.update({
+            where:{
+                id
+            },
+            data:{
+                active:false,
+            }
+        });
+
+        return;
     }
 }

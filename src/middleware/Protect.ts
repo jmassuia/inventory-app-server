@@ -16,7 +16,8 @@ export class Protect{
 
         // 2) Validate token
         try{
-            await verify(token,process.env.JWT_SECRET);
+            const decoded = await verify(token,process.env.JWT_SECRET);
+            req.user = decoded;
             next();
         }
         // 3) Handle success/fail try

@@ -28,7 +28,7 @@ export class ClientController{
     }
     async create(req:Request,res:Response){
         //1) Get body data
-        const {name,email,password,CNPJ} = req.body;
+        const {name,email,role,password,CNPJ} = req.body;
 
         //2) Hash password
         const salt = await genSalt(10);
@@ -37,6 +37,7 @@ export class ClientController{
         var data = {
             name,
             email,
+            role,
             password:hashPassword,
             CNPJ
         }
@@ -51,7 +52,69 @@ export class ClientController{
                 data:client
             })
         }catch(err){
+            return res.status(501).json({
+                message:'An unexpected error occurred, please reach out to the support'
+            })
+        }
+    }
+    async update(req:Request,res:Response){
+        //1) Getting data
+        const id = parseInt(req.params.id);
+        const data = req.body;
+
+        try{
+            const service = new ClientService();
+            const updatedUser = await service.updateClient(id,data);
+
+            return res.status(201).json({
+                data:updatedUser,
+                message:'User updated'
+            })
+            
+        }catch(err){
             console.log(err);
+            return res.status(501).json({
+                message:'An unexpected error occurred, please reach out to the support'
+            })
+        }
+
+    }
+    async updateMe(req:Request,res:Response){
+        const uid = req.params.id;
+        const {id} = req.user;
+        const {name,email,CNPJ} = req.body;        
+
+        if(uid!=id){
+            return res.status(403).json({
+                message:'Voce não tem autorização para atualizar usuários de terceiros'
+            })
+        }
+        try{
+            const service = new ClientService();
+            const updateClient = await service.updateClient(id,{name,email,CNPJ});
+
+            return res.status(200).json({
+                message:'Conta atualizada!',
+                data:updateClient
+            })
+        }catch(err){
+            return res.status(501).json({
+                message:'An unexpected error occurred, please reach out to the support'
+            })
+        }
+    }
+    async remove(req:Request,res:Response){
+        const id = parseInt(req.params.id);
+        
+        try{
+            const service = new ClientService();
+            await service.deleteClient(id);
+
+            return res.json(200).json({
+                data:null
+            })
+        }
+        catch(err){
             return res.status(501).json({
                 message:'An unexpected error occurred, please reach out to the support'
             })

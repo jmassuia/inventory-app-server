@@ -15,6 +15,8 @@ model Client {
   email    String    @unique
   password String
   CNPJ     String    @unique
+  role     String    @default("user")
+  active   Boolean   @default(true)
   products Product[]
   stock    Stock[]
 

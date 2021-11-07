@@ -5,8 +5,10 @@ const prisma = new PrismaClient();
 
 //Define User typo
 export interface User{
+    name: string,
     email: string
     password: string
+    role:String
 }
 
 export class AuthenticateServices{
@@ -16,8 +18,15 @@ export class AuthenticateServices{
         const client = await prisma.client.findUnique({
             where:{
                 email:user.email
-            }
+            },
         });
+
+        const validUser = {
+            id:client.id,
+            name:client.name,
+            email:client.email,
+            role:client.role
+        }
 
         //2) Get encrypted key from database
         const encryptedPassword = client.password;
@@ -25,11 +34,11 @@ export class AuthenticateServices{
         //3) verify if the password inputed matches with the hashed one on database
         const isPasswordCorrect = await compare(user.password,encryptedPassword);
 
-        if(isPasswordCorrect){
-            return isPasswordCorrect
+        if(!isPasswordCorrect){
+            return false
         }
 
-        return false;
+        return validUser ;
     }
 }
 
