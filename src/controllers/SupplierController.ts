@@ -26,13 +26,17 @@ export class SupplierController{
     }
 
     async create(req:Request,res:Response){
-        const {name,code,address,phone} = req.body
+        const {name,address,phone,city,clientId,cnpj,state,client} = req.body
 
         let data = {
             name,
-            code,
             address,
-            phone
+            phone,
+            city,
+            clientId,
+            cnpj,
+            state,
+            client
         }
 
         try{
@@ -46,7 +50,7 @@ export class SupplierController{
         }catch(err){
             console.log(err)
             return res.status(501).json({
-                message:'An unexpected error occurred, please reacht out to the support'
+                message:'An unexpected error occurred, please reach out to the support'
             })
         }
     }

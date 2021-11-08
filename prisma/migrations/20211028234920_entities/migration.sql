@@ -38,7 +38,6 @@ CREATE TABLE `stocks` (
 CREATE TABLE `suppliers` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
-    `code` VARCHAR(191) NOT NULL,
     `address` VARCHAR(191) NOT NULL,
     `phone` VARCHAR(191) NOT NULL,
 

@@ -17,6 +17,7 @@ model Client {
   CNPJ     String    @unique
   products Product[]
   stock    Stock[]
+  suppliers Suppliers[]
 
   @@map("clients")
 }
@@ -47,11 +48,15 @@ model Stock {
 }
 
 model Suppliers {
-  id      Int    @id @default(autoincrement())
-  name    String
-  code    String
-  address String
-  phone   String
+  id        Int    @id @default(autoincrement())
+  name      String
+  state     String
+  city      String
+  address   String
+  cnpj      String
+  phone     String
+  client    Client @relation(fields:[clientId], references:[id])
+  clientId  Int
 
   @@map("suppliers")
 }
