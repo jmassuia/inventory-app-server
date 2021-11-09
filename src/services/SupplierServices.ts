@@ -4,9 +4,12 @@ const prisma = new PrismaClient()
 
 interface Supplier {
     name:string
-    code:string
     address:string
     phone:string
+    city:string
+    cnpj:string
+    state:string
+    client:object
 }
 
 export class SupplierService{
@@ -14,9 +17,12 @@ export class SupplierService{
         const newSupplier = await prisma.suppliers.create({
             data:{
                 name:nsup.name,
-                code:nsup.code,
                 address:nsup.address,
-                phone:nsup.phone
+                phone:nsup.phone,
+                city:nsup.city,
+                cnpj:nsup.cnpj,
+                state:nsup.state,
+                client:nsup.client
             }
         })
 
