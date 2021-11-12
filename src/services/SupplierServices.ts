@@ -3,35 +3,57 @@ import { PrismaClient } from '.prisma/client'
 const prisma = new PrismaClient()
 
 interface Supplier {
-    name:string
-    address:string
-    phone:string
-    city:string
-    cnpj:string
-    state:string
-    client:object
+    name: string
+    address: string
+    phone: string
+    city: string
+    cnpj: string
+    uf: string
+    clientId: number
 }
 
 export class SupplierService{
-    async addSuppliers(nsup:Supplier){
+    async listSuppliers(){
+        // List all the suppliers available
+        const listSupp = await prisma.suppliers.findMany()
+
+        //Return the suppliers
+        return listSupp
+    }
+    async addSupplier(supplier:Supplier){
         const newSupplier = await prisma.suppliers.create({
             data:{
-                name:nsup.name,
-                address:nsup.address,
-                phone:nsup.phone,
-                city:nsup.city,
-                cnpj:nsup.cnpj,
-                state:nsup.state,
-                client:nsup.client
+                name:supplier.name,
+                address:supplier.address,
+                phone:supplier.phone,
+                city:supplier.city,
+                cnpj:supplier.cnpj,
+                uf:supplier.uf,
+                clientId:supplier.clientId
             }
         })
 
         return newSupplier
 
     }
-    async listSuppliers(){
-        const listSupp = await prisma.suppliers.findMany()
+    async updateSupplier(id,data){
+        const supplier = await prisma.suppliers.update({
+            where:{
+                id
+            },
+            data
+        });
 
-        return listSupp
+        return supplier;
+    }
+    async deleteSupplier(id){
+
+        await prisma.suppliers.delete({
+            where:{
+                id
+            }
+        });
+
+        return;
     }
 }

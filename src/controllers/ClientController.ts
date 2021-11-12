@@ -4,6 +4,7 @@ import { ClientService } from '../services/ClientServices';
 
 
 export class ClientController{
+    
     async index(req:Request,res:Response){
         //1) Try to list all the clients
         try{

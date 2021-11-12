@@ -52,7 +52,7 @@ model Stock {
 model Suppliers {
   id        Int    @id @default(autoincrement())
   name      String
-  state     String
+  uf        String
   city      String
   address   String
   cnpj      String
