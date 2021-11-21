@@ -3,8 +3,8 @@ import { PrismaClient } from '.prisma/client'
 const prisma = new PrismaClient()
 
 interface Product {
-    name:String
-    desc:String
+    name:string
+    desc:string
     price:number
     quantity:number    
     clientId:number
@@ -14,35 +14,28 @@ interface Product {
 export class ProductService{
     async listproducts(){
         // List all the products available
-        const listProducts = await prisma.product.findMany()
+        const products = await prisma.product.findMany()
 
         //Return the product
-        return listProducts
+        return products
     }
-    async addProduct(product:Product){
+    async addProduct(data:Product){
         const newProduct = await prisma.product.create({
-            data:{
-                name:product.name,
-                desc:product.desc,
-                price:product.price,
-                quantity:product.quantity,
-                clientId:product.clientId,
-                stockId:product.stockId              
-            }
+            data
         })
 
         return newProduct
 
     }
     async updateProduct(id,data){
-        const Product = await prisma.product.update({
+        const product = await prisma.product.update({
             where:{
                 id
             },
             data
         });
 
-        return Product;
+        return product;
     }
     async deleteProduct(id){
 

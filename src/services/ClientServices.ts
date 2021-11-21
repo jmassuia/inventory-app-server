@@ -17,6 +17,7 @@ export class ClientService{
                 active:true
             },
             select:{
+                id:true,
                 name:true,
                 email:true,
                 role:true,              
