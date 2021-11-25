@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 export interface User{
     name: string,
     email: string
+    cnpj: string
     password: string
     role:String
 }
@@ -25,6 +26,7 @@ export class AuthenticateServices{
             id:client.id,
             name:client.name,
             email:client.email,
+            cnpj:client.CNPJ,
             role:client.role
         }
 

@@ -7,16 +7,37 @@ export class StockController{
         try{
             const service = new StockServices
 
-            const Products = await service.listStock()
+            const stocks = await service.listAllStock()
 
-            if(!Products){
+            if(!stocks){
                 return res.status(200).json({
                     data:null
                 })
             }
 
             return res.status(200).json({
-                data:Products
+                data:stocks
+            })
+        }catch(err){
+            return res.status(501).json({
+                message:'An unexpected error ocurred, please reach out the support'
+            })
+        }
+    }
+    async findStockByClient(req:Request,res:Response){
+        try{
+            const service = new StockServices
+
+            const stocks = await service.listStock(parseInt(req.params.id))
+
+            if(!stocks){
+                return res.status(200).json({
+                    data:null
+                })
+            }
+
+            return res.status(200).json({
+                data:stocks
             })
         }catch(err){
             return res.status(501).json({
@@ -37,10 +58,10 @@ export class StockController{
         try{
             const service = new StockServices()
 
-            const Product = await service.addStock(data)
+            const stock = await service.addStock(data)
 
             return res.status(200).json({
-                data:Product
+                data:stock
             })
         }catch(err){
             console.log(err)

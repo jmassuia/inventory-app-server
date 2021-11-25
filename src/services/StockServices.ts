@@ -9,9 +9,20 @@ interface Stock {
 }
 
 export class StockServices{
-    async listStock(){
+    async listAllStock(){
         // List all the suppliers available
         const listSupp = await prisma.stock.findMany()
+        
+        //Return the suppliers
+        return listSupp
+    }
+    async listStock(clientId){
+        // List all the suppliers available
+        const listSupp = await prisma.stock.findMany({
+            where:{
+                clientId
+            }
+        })
 
         //Return the suppliers
         return listSupp

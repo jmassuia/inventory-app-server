@@ -24,6 +24,29 @@ export class ProductController{
             })
         }
     }
+    async findProductsByStock(req:Request,res:Response){
+        const {id} = req.params
+        try{
+            const service = new ProductService
+
+            const Products = await service.listProductsByStock(parseInt(id))
+
+            if(!Products){
+                return res.status(200).json({
+                    data:null
+                })
+            }
+
+            return res.status(200).json({
+                data:Products
+            })
+        }catch(err){
+            console.log(err)
+            return res.status(501).json({
+                message:'An unexpected error ocurred, please reach out the support'
+            })
+        }
+    }
 
     async create(req:Request,res:Response){
         const {name,desc,price,quantity,clientId,stockId} = req.body

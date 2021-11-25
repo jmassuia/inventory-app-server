@@ -5,7 +5,6 @@ import { RestrictTo } from '../middleware/RestrictTo';
 const router = Router();
 
 router.get('/', 
-    new Protect().execute,
     new SupplierController().index)
 
 router.post('/',new SupplierController().create)

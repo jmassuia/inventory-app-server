@@ -19,8 +19,16 @@ export class AuthController{
         //3) Generate JWT token
         const signToken = sign(isValidUser,process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRE})
         
+        const client = {
+            id:isValidUser.id,
+            name:isValidUser.name,
+            CNPJ:isValidUser.cnpj,
+            email:isValidUser.email
+        }
+
         return res.status(200).json({
-                data:signToken
+                data:signToken,
+                user:client
             });
         }
         catch(err){

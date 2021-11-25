@@ -19,6 +19,17 @@ export class ProductService{
         //Return the product
         return products
     }
+    async listProductsByStock(id){
+        // List all the products available
+        const product = await prisma.product.findMany({
+            where:{
+                stockId:id
+            }
+        })
+
+        //Return the product
+        return product
+    }
     async addProduct(data:Product){
         const newProduct = await prisma.product.create({
             data

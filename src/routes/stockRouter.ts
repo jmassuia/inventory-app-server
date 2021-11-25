@@ -5,8 +5,11 @@ import { RestrictTo } from '../middleware/RestrictTo';
 const router = Router();
 
 router.get('/', 
-    new Protect().execute,
     new StockController().index)
+
+router.get('/:id',
+    new Protect().execute,
+    new StockController().findStockByClient)
 
 router.post('/',new StockController().create)
 
